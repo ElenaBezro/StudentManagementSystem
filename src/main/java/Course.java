@@ -35,7 +35,7 @@ public class Course {
         studentGrades.put(student, grade);
     }
 
-    public boolean findStudent(Student student) {
+    public boolean findStudentOnTheCourse(Student student) {
         return studentList.contains(student);
     }
 }
