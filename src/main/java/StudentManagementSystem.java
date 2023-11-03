@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class StudentManagementSystem {
-    UserManagerment userManagerment = new UserManagerment();
+    UserManagement userManagement = new UserManagement();
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
     private static final Map<String, Role> SECRET_WORD_TO_ROLE = Utils.fillSecretWordToRoleMap();
     Scanner sc = new Scanner(System.in);
@@ -50,7 +50,7 @@ public class StudentManagementSystem {
     }
 
     private void login(String login, String password) {
-        boolean isUserFound = userManagerment.findLoginPassworsPair(login, password);
+        boolean isUserFound = userManagement.findLoginPassworsPair(login, password);
 
         if (isUserFound) {
             System.out.println("Logged in!");
@@ -87,7 +87,7 @@ public class StudentManagementSystem {
     }
 
     private void storeUserInSystem() {
-        userManagerment.addUserToPassword(getUserInputLoginData());
+        userManagement.addUserToPassword(getUserInputLoginData());
     }
 
     private void setUserLoginToRoleMap(String login, Role currentUserRole) {

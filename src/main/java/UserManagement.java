@@ -3,17 +3,40 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class UserManagerment {
-    //TODO: change later to List<User> userList = new ArrayList<>();
+public class UserManagement {
+    List<User> userList = new ArrayList<>();
+
     private List<String[]> userToPassword = new ArrayList<>();
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
 
-    public UserManagerment() {
+    public UserManagement() {
         Utils.fillUserWithMockData(userToPassword, userLoginToRoleMap);
     }
 
     public void addUserToPassword (String[] userInputLoginData) {
         userToPassword.add(userInputLoginData);
+    }
+
+    public void addUser(User user) {
+        userList.add(user);
+    }
+
+    public void deleteUser(User user) {
+        userList.remove(user);
+    }
+
+    public void updateUser(User userToUpdate) {
+        for (User user: userList) {
+            if (user.getId() == userToUpdate.getId()) {
+                user.setName(userToUpdate.getName());
+            }
+        }
+    }
+
+    public void displayUsers() {
+        for (User user: userList) {
+            System.out.println(user);
+        }
     }
 
     public boolean findLoginPassworsPair(String login, String password) {
