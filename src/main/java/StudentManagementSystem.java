@@ -1,11 +1,9 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class StudentManagementSystem {
     //TODO: change later to List<User> userList = new ArrayList<>();
-    List<String[]> userToPassword = new ArrayList<>();
+    private List<String[]> userToPassword = new ArrayList<>();
+    private Map<String, Role> userLoginToRoleMap = new HashMap<>();
     private static final Map<String, Role> SECRET_WORD_TO_ROLE = Utils.fillSecretWordToRoleMap();
     Scanner sc = new Scanner(System.in);
     private static boolean isRegistration = true;
@@ -18,6 +16,7 @@ public class StudentManagementSystem {
     public Role currentUserRole;
 
     public void startSystem() {
+        Utils.fillUserWithMockData(userToPassword, userLoginToRoleMap);
         System.out.println("Welcome to the Student Management System!");
 
         while (isRegistration && !isLoggedIn) {
@@ -44,8 +43,9 @@ public class StudentManagementSystem {
 
     public void login() {
         while (!isLoggedIn && !isExit) {
-            String login = getUserInputLoginData()[0];
-            String password = getUserInputLoginData()[1];
+            String[] data = getUserInputLoginData();
+            String login = data[0];
+            String password = data[1];
 
             login(login, password);
         }
@@ -57,6 +57,8 @@ public class StudentManagementSystem {
         for (String[] user : userToPassword) {
             if (user[0].equals(login) && user[1].equals(password)) {
                 System.out.println("Logged in!");
+                System.out.println("User role: " + userLoginToRoleMap.get(login));
+
                 isLoggedIn = true;
                 isUserFound = true;
                 //TODO: pass user's role currentUsersRole? later (student or teacher)
@@ -94,15 +96,22 @@ public class StudentManagementSystem {
         userToPassword.add(getUserInputLoginData());
     }
 
+    private void setUserLoginToRoleMap(String login, Role currentUserRole) {
+        userLoginToRoleMap.put(login, currentUserRole);
+    }
+
+
 
     public void registerUser() {
-        String login = getUserInputLoginData()[0];
-        String password = getUserInputLoginData()[1];
+        String[] data = getUserInputLoginData();
+        String login = data[0];
+        String password = data[1];
         boolean isRoleSetted = false;
         while (!isRoleSetted) {
             isRoleSetted = setUsersRole();
         }
         storeUserInSystem();
+        setUserLoginToRoleMap(login, currentUserRole);
         login(login, password);
     }
 
