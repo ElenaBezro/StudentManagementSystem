@@ -50,7 +50,7 @@ public class StudentManagementSystem {
     }
 
     private void login(String login, String password) {
-        boolean isUserFound = userManagement.findLoginPassworsPair(login, password);
+        boolean isUserFound = userManagement.findLoginPasswordsPair(login, password);
 
         if (isUserFound) {
             System.out.println("Logged in!");
