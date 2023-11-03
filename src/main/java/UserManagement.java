@@ -5,8 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UserManagement {
-    List<User> userList = new ArrayList<>();
-
+    private List<User> userList = new ArrayList<>();
     private List<String[]> userToPassword = new ArrayList<>();
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
     private static final String USER_DATA_FILE = "users.txt";

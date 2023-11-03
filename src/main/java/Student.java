@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Student extends User {
-    List<Course> courseList = new ArrayList<>();
+    private List<Course> courseList = new ArrayList<>();
 
     public Student(String name, int id) {
         super(name, id);

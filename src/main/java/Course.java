@@ -1,10 +1,13 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Course {
     String name;
     int id;
-    List<Student> studentList = new ArrayList<>();
+    private List<Student> studentList = new ArrayList<>();
+    private Map<Student, Integer> studentGrades = new HashMap<>();
 
     public int getId() {
         return id;
@@ -23,7 +26,16 @@ public class Course {
                 .filter(student -> student.getId() != id)
                 .toList();
     }
+
     public void displayStudentList() {
         studentList.forEach(System.out::println);
+    }
+
+    public void addGrade(Student student, Integer grade) {
+        studentGrades.put(student, grade);
+    }
+
+    public boolean findStudent(Student student) {
+        return studentList.contains(student);
     }
 }
