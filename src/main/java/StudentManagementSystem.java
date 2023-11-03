@@ -1,8 +1,7 @@
 import java.util.*;
 
 public class StudentManagementSystem {
-    //TODO: change later to List<User> userList = new ArrayList<>();
-    private List<String[]> userToPassword = new ArrayList<>();
+    UserManagerment userManagerment = new UserManagerment();
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
     private static final Map<String, Role> SECRET_WORD_TO_ROLE = Utils.fillSecretWordToRoleMap();
     Scanner sc = new Scanner(System.in);
@@ -16,7 +15,6 @@ public class StudentManagementSystem {
     public Role currentUserRole;
 
     public void startSystem() {
-        Utils.fillUserWithMockData(userToPassword, userLoginToRoleMap);
         System.out.println("Welcome to the Student Management System!");
 
         while (isRegistration && !isLoggedIn) {
@@ -52,20 +50,16 @@ public class StudentManagementSystem {
     }
 
     private void login(String login, String password) {
-        boolean isUserFound = false;
+        boolean isUserFound = userManagerment.findLoginPassworsPair(login, password);
 
-        for (String[] user : userToPassword) {
-            if (user[0].equals(login) && user[1].equals(password)) {
-                System.out.println("Logged in!");
-                System.out.println("User role: " + userLoginToRoleMap.get(login));
+        if (isUserFound) {
+            System.out.println("Logged in!");
+            System.out.println("User role: " + userLoginToRoleMap.get(login));
 
-                isLoggedIn = true;
-                isUserFound = true;
-                //TODO: pass user's role currentUsersRole? later (student or teacher)
-                displayCommandsForUser();
-            }
-        }
-        if (!isUserFound) {
+            isLoggedIn = true;
+            //TODO: pass user's role currentUsersRole? later (student or teacher)
+            displayCommandsForUser();
+        } else {
             countWrongAttempt += 1;
             System.out.println("Invalid login or password!");
             System.out.println("Attempts availible: " + (ALLOWED_WRONG_LOGIN_INPUT - countWrongAttempt));
@@ -93,13 +87,12 @@ public class StudentManagementSystem {
     }
 
     private void storeUserInSystem() {
-        userToPassword.add(getUserInputLoginData());
+        userManagerment.addUserToPassword(getUserInputLoginData());
     }
 
     private void setUserLoginToRoleMap(String login, Role currentUserRole) {
         userLoginToRoleMap.put(login, currentUserRole);
     }
-
 
 
     public void registerUser() {
