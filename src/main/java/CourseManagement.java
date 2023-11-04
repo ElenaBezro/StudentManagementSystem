@@ -1,4 +1,5 @@
 import CustomExceptions.CourseIsNotRegisteredException;
+import CustomExceptions.StudentIsNotRegisteredException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +16,25 @@ public class CourseManagement {
                 return course;
             }
         }
+
         if (!isFound) {
             throw new CourseIsNotRegisteredException();
         }
+
         return null;
+    }
+
+    public List<Course> findCourseByName(String name) throws CourseIsNotRegisteredException {
+        List<Course> result = courseList.stream()
+                .filter(course -> course.getName().equals(name))
+                .toList();
+
+        if (result.isEmpty()) {
+            throw new CourseIsNotRegisteredException();
+        }
+
+        result.forEach(System.out::println);
+        return result;
     }
 
     public List<Course> sortCoursesByName() {

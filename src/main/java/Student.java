@@ -25,6 +25,10 @@ public class Student extends User implements Comparable<Student> {
         courseList.forEach(System.out::println);
     }
 
+    public List<Course> getCourseList() {
+        return courseList;
+    }
+
     @Override
     public int compareTo(Student o) {
         return this.getName().compareTo(o.getName());
