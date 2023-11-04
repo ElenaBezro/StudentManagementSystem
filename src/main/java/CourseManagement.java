@@ -1,11 +1,21 @@
 import CustomExceptions.CourseIsNotRegisteredException;
-import CustomExceptions.StudentIsNotRegisteredException;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CourseManagement {
     List<Course> courseList = new ArrayList<>();
+
+    @MethodWithReflection
+    public void methodWithReflection() {
+        Course course = new Course();
+        for (Method method : course.getClass().getDeclaredMethods()) {
+            if (method.getName().equals("methodWithReflection")) {
+                System.out.println("Method with reflection");
+            }
+        }
+    }
 
     public Course findCourseById(int id) throws CourseIsNotRegisteredException {
         boolean isFound = false;
