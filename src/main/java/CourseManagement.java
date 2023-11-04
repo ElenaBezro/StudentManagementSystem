@@ -20,4 +20,12 @@ public class CourseManagement {
         }
         return null;
     }
+
+    public List<Course> sortCoursesByName() {
+        return courseList.stream()
+                .sorted()
+                .peek(System.out::println)
+                .toList();
+    }
+
 }

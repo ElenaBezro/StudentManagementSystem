@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Course {
+public class Course implements Comparable<Course>{
     String name;
     int id;
     private List<Student> studentList = new ArrayList<>();
@@ -11,6 +11,10 @@ public class Course {
 
     public int getId() {
         return id;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public void addStudentToCourse(Student student) {
@@ -37,5 +41,15 @@ public class Course {
 
     public boolean findStudentOnTheCourse(Student student) {
         return studentList.contains(student);
+    }
+
+    @Override
+    public String toString() {
+        return "Course: name = " + name + ", id = " + id;
+    }
+
+    @Override
+    public int compareTo(Course o) {
+        return name.compareTo(o.getName());
     }
 }

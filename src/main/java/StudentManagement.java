@@ -21,4 +21,11 @@ public class StudentManagement {
         return null;
     }
 
+    public List<Student> sortStudentsByName() {
+        return studentList.stream()
+                .sorted()
+                .peek(System.out::println)
+                .toList();
+    }
+
 }

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Student extends User {
+public class Student extends User implements Comparable<Student> {
     private List<Course> courseList = new ArrayList<>();
 
     public Student(String name, int id) {
@@ -23,5 +23,10 @@ public class Student extends User {
     }
     public void displayCourseList() {
         courseList.forEach(System.out::println);
+    }
+
+    @Override
+    public int compareTo(Student o) {
+        return this.getName().compareTo(o.getName());
     }
 }

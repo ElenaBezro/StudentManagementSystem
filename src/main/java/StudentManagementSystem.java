@@ -2,9 +2,13 @@ import java.util.*;
 
 public class StudentManagementSystem {
     UserManagement userManagement = new UserManagement();
+    //TODO: move user data to UserManagement
+    //TODO: maybe move login and sign up functionality into a separate file?
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
     private static final Map<String, Role> SECRET_WORD_TO_ROLE = Utils.fillSecretWordToRoleMap();
     Scanner sc = new Scanner(System.in);
+
+    //TODO: store all system states in the Map<State, Boolean>, where State is enum?
     private static boolean isRegistration = true;
     private static boolean isExit = false;
     private static boolean isLoggedIn = false;
@@ -37,7 +41,6 @@ public class StudentManagementSystem {
         String password = sc.nextLine();
         return (new String[]{login, password});
     }
-
 
     public void login() {
         while (!isLoggedIn && !isExit) {
@@ -94,15 +97,35 @@ public class StudentManagementSystem {
         userLoginToRoleMap.put(login, currentUserRole);
     }
 
+    public boolean validateUserInputLoginData(String[] data) {
+        boolean isValid = true;
+        if (data[0].trim().isEmpty()) {
+            isValid = false;
+            System.out.println("Empty login are not allowed.");
+        }
+        if (data[1].length() < 4) {
+            isValid = false;
+            System.out.println("The password must consist of a minimum of four characters or digits.");
+        }
+        return isValid;
+    }
 
     public void registerUser() {
         String[] data = getUserInputLoginData();
+
+        boolean isValid = validateUserInputLoginData(data);
+        while (!isValid) {
+            data = getUserInputLoginData();
+        }
+
         String login = data[0];
         String password = data[1];
+
         boolean isRoleSetted = false;
         while (!isRoleSetted) {
             isRoleSetted = setUsersRole();
         }
+
         storeUserInSystem();
         setUserLoginToRoleMap(login, currentUserRole);
         login(login, password);
