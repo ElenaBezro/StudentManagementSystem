@@ -5,6 +5,7 @@ public class StudentManagementSystem {
     //TODO: move user data to UserManagement
     //TODO: maybe move login and sign up functionality into a separate file?
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
+    //TODO: remove? redundant
     private static final Map<String, Role> SECRET_WORD_TO_ROLE = Utils.fillSecretWordToRoleMap();
     Scanner sc = new Scanner(System.in);
 

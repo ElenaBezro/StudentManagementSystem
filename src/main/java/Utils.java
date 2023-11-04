@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
-    public static void fillUserWithMockData(List<String[]> userToPassword, Map<String, Role> userLoginToRoleMap) {
-        userToPassword.add(new String[]{"Lena", "0000"});
-        userToPassword.add(new String[]{"Mila", "0000"});
-        userToPassword.add(new String[]{"Nona", "0000"});
+    public static void fillUserWithMockData(Map<String, String> userToPassword, Map<String, Role> userLoginToRoleMap) {
+        userToPassword.put("Lena", "0000");
+        userToPassword.put("Mila", "0000");
+        userToPassword.put("Nona", "0000");
 
         userLoginToRoleMap.put("Lena", Role.STUDENT);
         userLoginToRoleMap.put("Mila", Role.TEACHER);

@@ -6,18 +6,20 @@ import java.util.Map;
 
 public class UserManagement {
     private List<User> userList = new ArrayList<>();
-    private List<String[]> userToPassword = new ArrayList<>();
+    private Map<String, String> userToPassword = new HashMap<>();
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
     private static final String USER_DATA_FILE = "users.txt";
     private static final String SEPARATOR = ", ";
 
     public UserManagement() {
         Utils.fillUserWithMockData(userToPassword, userLoginToRoleMap);
-        //readUserDataFromFile();
+        //or readUserDataFromFile();
     }
 
     public void addUserToPassword(String[] userInputLoginData) {
-        userToPassword.add(userInputLoginData);
+        String login = userInputLoginData[0];
+        String password = userInputLoginData[1];
+        userToPassword.put(login, password);
     }
 
     public void addUser(User user) {
@@ -44,8 +46,8 @@ public class UserManagement {
 
     public boolean findLoginPasswordsPair(String login, String password) {
         boolean isUserFound = false;
-        for (String[] user : userToPassword) {
-            if (user[0].equals(login) && user[1].equals(password)) {
+        for (Map.Entry<String, String> user : userToPassword.entrySet()) {
+            if (user.getKey().equals(login) && user.getValue().equals(password)) {
                 isUserFound = true;
             }
         }
