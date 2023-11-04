@@ -140,6 +140,7 @@ public class StudentManagementSystem {
     }
 
     public void displayCommandsForUser() {
+        //TODO: display different commands for different roles
 //        while (isUserMenuOpen) {
 //            System.out.println("Enter 'login' or 'register' to enter system");
 //            String command = sc.nextLine();
@@ -148,5 +149,10 @@ public class StudentManagementSystem {
 //                default -> System.out.println("Invalid input");
 //            }
 //        }
+        exit();
+    }
+
+    public <T> void printObject(T object) {
+        System.out.println(object.getClass().getName() + " = " + object);
     }
 }
