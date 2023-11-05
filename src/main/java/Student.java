@@ -9,6 +9,7 @@ public class Student extends User implements Comparable<Student> {
     }
 
     public void addCourse(Course course) {
+
         courseList.add(course);
     }
 

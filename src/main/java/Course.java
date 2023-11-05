@@ -9,6 +9,11 @@ public class Course implements Comparable<Course>{
     private List<Student> studentList = new ArrayList<>();
     private Map<Student, Integer> studentGrades = new HashMap<>();
 
+    public Course(String name, int id) {
+        this.name = name;
+        this.id = id;
+    }
+
     public int getId() {
         return id;
     }
@@ -23,6 +28,14 @@ public class Course implements Comparable<Course>{
 
     public void updateStudentList(List<Student> newList) {
         studentList = newList;
+    }
+
+    public List<Student> getStudentList() {
+        return studentList;
+    }
+
+    public Map<Student, Integer> getStudentGrades() {
+        return studentGrades;
     }
 
     public void deleteStudentFromCourse(int id) {

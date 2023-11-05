@@ -9,7 +9,7 @@ public class CourseManagement {
 
     @MethodWithReflection
     public void methodWithReflection() {
-        Course course = new Course();
+        Course course = new Course("Math", 1001);
         for (Method method : course.getClass().getDeclaredMethods()) {
             if (method.getName().equals("methodWithReflection")) {
                 System.out.println("Method with reflection");
