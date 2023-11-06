@@ -102,6 +102,10 @@ public class UserManagement {
 //                default -> System.out.println("Invalid input");
 //            }
 //        }
+        exit(sc);
+    }
+
+    public void exit(Scanner sc) {
         dataPersistenceService.writeUserDataIntoFile(userList);
         sc.close();
     }

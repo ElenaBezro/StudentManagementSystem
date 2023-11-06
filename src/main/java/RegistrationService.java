@@ -2,6 +2,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class RegistrationService {
+    //TODO: move operations with scanner, systemState, validation, isUserLoginAvailable  to a RegistrationController
+
     UserManagement userManagement;
     LoginService loginService;
 

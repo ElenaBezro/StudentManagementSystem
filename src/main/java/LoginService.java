@@ -3,6 +3,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class LoginService {
+    //TODO: move operations with scanner, systemState to a LoginController
+
     private UserManagement userManagement;
     private Map<String, String> userLoginToPassword = new HashMap<>();
     private int countWrongAttempt = 0;
