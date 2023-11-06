@@ -1,23 +1,53 @@
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Utils {
-    public static void fillUserWithMockData(Map<String, String> userToPassword, Map<String, Role> userLoginToRoleMap) {
-        userToPassword.put("Lena", "0000");
-        userToPassword.put("Mila", "0000");
-        userToPassword.put("Nona", "0000");
-
-        userLoginToRoleMap.put("Lena", Role.STUDENT);
-        userLoginToRoleMap.put("Mila", Role.TEACHER);
-        userLoginToRoleMap.put("Nona", Role.ADMIN);
+    public static void fillUserToPassword(Map<String, String> userToPassword) {
+        userToPassword.put("LenaLogin", "0000");
+        userToPassword.put("MilaLogin", "0000");
+        userToPassword.put("NonaLogin", "0000");
     }
-    public static Map<String, Role>  fillSecretWordToRoleMap() {
+
+    public static void fillUserWithMockData(List<User> userList, Map<String, Role> userLoginToRoleMap, Map<String, User> userLoginToUserMap) {
+
+        userLoginToRoleMap.put("LenaLogin", Role.STUDENT);
+        userLoginToRoleMap.put("MilaLogin", Role.TEACHER);
+        userLoginToRoleMap.put("NonaLogin", Role.ADMIN);
+
+        User user1 = new User("Lena", 1000);
+        User user2 = new User("Mala", 1001);
+        User user3 = new User("Nona", 1002);
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+
+        userLoginToUserMap.put("LenaLogin", user1);
+        userLoginToUserMap.put("MilaLogin", user2);
+        userLoginToUserMap.put("NonaLogin", user3);
+    }
+
+    public static Map<String, Role> fillSecretWordToRoleMap() {
         Map<String, Role> secretWordToRoleMap = new HashMap<>();
         secretWordToRoleMap.put("student", Role.STUDENT);
         secretWordToRoleMap.put("teacher", Role.TEACHER);
         secretWordToRoleMap.put("admin", Role.ADMIN);
-        return  secretWordToRoleMap;
+        return secretWordToRoleMap;
+    }
+
+    public static void fillSystemInitialState(Map<String, Boolean> systemState) {
+        systemState.put("isRegistration", true);
+        systemState.put("isExit", false);
+        systemState.put("isLoggedIn", false);
+        systemState.put("isUserMenuOpen", true);
+    }
+
+    public static int generateUserId(int userListSize) {
+        return 1000 + userListSize;
+    }
+
+    public static User generateUser(String name, int usersCount) {
+        int id = Utils.generateUserId(usersCount);
+        return new User(name, id);
     }
 }

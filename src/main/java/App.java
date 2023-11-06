@@ -1,5 +1,5 @@
 public class App {
-    public static final StudentManagementSystem studentManagementSystem = new StudentManagementSystem();
+    private static final StudentManagementSystem studentManagementSystem = new StudentManagementSystem();
 
     public static void runApp() {
         studentManagementSystem.startSystem();
