@@ -13,14 +13,14 @@ public class Teacher extends User {
     }
 
     public void setGrade(Course course, Student student, int grade) throws AdministerCourseDenyException {
-        try {
+        //try {
             if (coursesToAdminister.contains(course)) {
                 GradingSystem.addGrade(student, course, grade);
             } else {
                 throw new AdministerCourseDenyException();
             }
-        } catch (StudentNotInTheCourseException e) {
-            System.out.println(e.getMessage());
-        }
+//        } catch (StudentNotInTheCourseException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 }
