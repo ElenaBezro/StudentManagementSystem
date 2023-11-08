@@ -11,7 +11,7 @@ public class UserManagement {
 
     public UserManagement() {
         Utils.fillUserWithMockData(userList, userLoginToRoleMap, userLoginToUserMap);
-        //TODO: save in file other related info(login, password, role)
+        //TODO: save in other files userLoginToUserMap, userLoginToRoleMap and restore here
         //userList = dataPersistenceService.readUserDataFromFile();
     }
 
