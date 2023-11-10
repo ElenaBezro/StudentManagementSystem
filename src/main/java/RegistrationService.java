@@ -6,25 +6,27 @@ public class RegistrationService {
 
     UserManagement userManagement;
     LoginService loginService;
+    private Scanner sc;
 
     public RegistrationService(UserManagement userManagement, LoginService loginService) {
         this.userManagement = userManagement;
         this.loginService = loginService;
+        this.sc = InputService.getScanner();
     }
 
-    public void registerUser(Scanner sc, Map<String, Boolean> systemState) {
-        String[] data = loginService.getUserInputLoginData(sc);
+    public void registerUser(Map<String, Boolean> systemState) {
+        String[] data = loginService.getUserInputLoginData();
 
         boolean isValid = validateUserInputLoginData(data);
         while (!isValid) {
-            data = loginService.getUserInputLoginData(sc);
+            data = loginService.getUserInputLoginData();
             isValid = validateUserInputLoginData(data);
         }
 
         boolean isUserLoginAvailable = loginService.isUserLoginAvailable(data[0]);
         while (!isUserLoginAvailable) {
             System.out.println("Login is not available");
-            data = loginService.getUserInputLoginData(sc);
+            data = loginService.getUserInputLoginData();
             isUserLoginAvailable = loginService.isUserLoginAvailable(data[0]);
         }
 
@@ -33,14 +35,14 @@ public class RegistrationService {
 
         boolean isRoleSetted = false;
         while (!isRoleSetted) {
-            isRoleSetted = userManagement.setUsersRole(sc);
+            isRoleSetted = userManagement.setUsersRole();
         }
 
         //TODO: get user input for user name
         User user = Utils.generateUser(login, userManagement.getUsersCount());
         storeUserInSystem(user, login, password);
 
-        loginService.login(login, password, systemState, sc);
+        loginService.login(login, password, systemState);
     }
 
     public void storeUserInSystem(User user, String login, String password) {

@@ -7,19 +7,21 @@ public class UserManagement {
 
     //TODO: move role logic to a separate file
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
-    public Role currentUserRole;
+    private Role currentUserRole;
+    private Scanner sc;
 
     public UserManagement() {
         Utils.fillUserWithMockData(userList, userLoginToRoleMap, userLoginToUserMap);
         //TODO: save in other files userLoginToUserMap, userLoginToRoleMap and restore here
         //userList = dataPersistenceService.readUserDataFromFile();
+        this.sc = InputService.getScanner();
     }
 
     public int getUsersCount() {
         return userList.size();
     }
 
-    public boolean setUsersRole(Scanner sc) {
+    public boolean setUsersRole() {
         boolean isSet = true;
         System.out.println("Enter a SECRET WORD for your role. Tip: student/teacher/admin");
         String role = sc.nextLine();
@@ -91,7 +93,7 @@ public class UserManagement {
         dataPersistenceService.writeUserDataIntoFile(userList);
     }
 
-    public void displayCommandsForUser(Scanner sc) {
+    public void displayCommandsForUser() {
         //TODO: display different commands for different roles
 //        while (isUserMenuOpen) {
 //            System.out.println("Enter command");
@@ -102,10 +104,10 @@ public class UserManagement {
 //                default -> System.out.println("Invalid input");
 //            }
 //        }
-        exit(sc);
+        exit();
     }
 
-    public void exit(Scanner sc) {
+    public void exit() {
         dataPersistenceService.writeUserDataIntoFile(userList);
         sc.close();
     }
