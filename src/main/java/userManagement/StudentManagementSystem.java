@@ -1,3 +1,8 @@
+package userManagement;
+
+import authManagement.LoginService;
+import authManagement.RegistrationService;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;

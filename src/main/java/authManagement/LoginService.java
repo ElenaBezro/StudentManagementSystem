@@ -1,3 +1,9 @@
+package authManagement;
+
+import userManagement.InputService;
+import userManagement.UserManagement;
+import userManagement.Utils;
+
 import java.util.*;
 
 public class LoginService {

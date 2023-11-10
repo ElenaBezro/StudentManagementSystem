@@ -1,3 +1,5 @@
+package userManagement;
+
 import java.util.Scanner;
 
 public class InputService {

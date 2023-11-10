@@ -1,6 +1,11 @@
+import courseManagement.Course;
+import gradingManagement.GradingSystem;
+import gradingManagement.StudentGrades;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import studentManagement.Student;
 
+import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -12,7 +17,7 @@ class GradingSystemTest {
     @DisplayName("Test that the result contains students with low grades")
     void findStudentsWithBadAcademicPerformancePositive() {
         //arrange
-        GradingSystem gradingSystem = new GradingSystem();
+        GradingSystem gradingSystem = GradingSystem.getGradingSystem();
 
         Student student1 = new Student("Lena", 1001);
         Student student2 = new Student("Lola", 1002);
@@ -20,24 +25,24 @@ class GradingSystemTest {
         Course course1 = new Course("Math", 101);
         Course course2 = new Course("German", 102);
 
-        GradingSystem.addGrade(student1, course1, 1);
-        GradingSystem.addGrade(student1, course2, 5);
-        GradingSystem.addGrade(student2, course1, 4);
-        GradingSystem.addGrade(student2, course2, 4);
+        gradingSystem.addGrade(student1, course1, 1);
+        gradingSystem.addGrade(student1, course2, 5);
+        gradingSystem.addGrade(student2, course1, 4);
+        gradingSystem.addGrade(student2, course2, 4);
 
         //act
-        Map<Student, Map<Course, Integer>> resultPositive = gradingSystem.findStudentsWithBadAcademicPerformance();
+        List<StudentGrades> resultPositive = gradingSystem.findStudentsWithBadAcademicPerformance();
 
         //assert
         assertEquals(1, resultPositive.size());
-        assertTrue(resultPositive.containsKey(student1));
+        assertTrue(resultPositive.contains(student1));
     }
 
     @Test
     @DisplayName("Test that the result is empty when all students have high grades")
     void findStudentsWithBadAcademicPerformanceEmpty() {
         //arrange
-        GradingSystem gradingSystem = new GradingSystem();
+        GradingSystem gradingSystem = GradingSystem.getGradingSystem();
 
         Student student1 = new Student("Lena", 1001);
         Student student2 = new Student("Lola", 1002);
@@ -45,13 +50,13 @@ class GradingSystemTest {
         Course course1 = new Course("Math", 101);
         Course course2 = new Course("German", 102);
 
-        GradingSystem.addGrade(student1, course1, 5);
-        GradingSystem.addGrade(student1, course2, 4);
-        GradingSystem.addGrade(student2, course1, 4);
-        GradingSystem.addGrade(student2, course2, 4);
+        gradingSystem.addGrade(student1, course1, 5);
+        gradingSystem.addGrade(student1, course2, 4);
+        gradingSystem.addGrade(student2, course1, 4);
+        gradingSystem.addGrade(student2, course2, 4);
 
         //act
-        Map<Student, Map<Course, Integer>> resultEmpty = gradingSystem.findStudentsWithBadAcademicPerformance();
+        List<StudentGrades> resultEmpty = gradingSystem.findStudentsWithBadAcademicPerformance();
 
         //assert
         assertEquals(0, resultEmpty.size());
@@ -61,7 +66,7 @@ class GradingSystemTest {
     @DisplayName("Test that the result is empty if grades = minimum passing grade")
     void findStudentsWithBadAcademicPerformanceEdgeCase() {
         //arrange
-        GradingSystem gradingSystem = new GradingSystem();
+        GradingSystem gradingSystem = GradingSystem.getGradingSystem();
         int edgeCaseValue = GradingSystem.MINIMUM_PASSING_GRADE;
 
         Student student1 = new Student("Lena", 1001);
@@ -70,13 +75,13 @@ class GradingSystemTest {
         Course course1 = new Course("Math", 101);
         Course course2 = new Course("German", 102);
 
-        GradingSystem.addGrade(student1, course1, edgeCaseValue);
-        GradingSystem.addGrade(student1, course2, 5);
-        GradingSystem.addGrade(student2, course1, 4);
-        GradingSystem.addGrade(student2, course2, 4);
+        gradingSystem.addGrade(student1, course1, edgeCaseValue);
+        gradingSystem.addGrade(student1, course2, 5);
+        gradingSystem.addGrade(student2, course1, 4);
+        gradingSystem.addGrade(student2, course2, 4);
 
         //act
-        Map<Student, Map<Course, Integer>> result = gradingSystem.findStudentsWithBadAcademicPerformance();
+        List<StudentGrades> result = gradingSystem.findStudentsWithBadAcademicPerformance();
         System.out.println(gradingSystem.printStudentsCoursesWithGradesMapInternally());
 
         //assert
@@ -86,7 +91,7 @@ class GradingSystemTest {
     @Test
     void printStudentsCoursesWithGradesMap() {
         //arrange
-        GradingSystem gradingSystem = new GradingSystem();
+        GradingSystem gradingSystem = GradingSystem.getGradingSystem();
 
         Student student1 = new Student("Lena", 1001);
         Student student2 = new Student("Lola", 1002);
@@ -94,10 +99,10 @@ class GradingSystemTest {
         Course course1 = new Course("Math", 101);
         Course course2 = new Course("German", 102);
 
-        GradingSystem.addGrade(student1, course1, 1);
-        GradingSystem.addGrade(student1, course2, 5);
-        GradingSystem.addGrade(student2, course1, 4);
-        GradingSystem.addGrade(student2, course2, 4);
+        gradingSystem.addGrade(student1, course1, 1);
+        gradingSystem.addGrade(student1, course2, 5);
+        gradingSystem.addGrade(student2, course1, 4);
+        gradingSystem.addGrade(student2, course2, 4);
 
         //act
         String result  = gradingSystem.printStudentsCoursesWithGradesMapInternally();

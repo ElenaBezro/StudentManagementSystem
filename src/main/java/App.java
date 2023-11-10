@@ -1,3 +1,5 @@
+import userManagement.StudentManagementSystem;
+
 public class App {
     private static final StudentManagementSystem studentManagementSystem = new StudentManagementSystem();
 

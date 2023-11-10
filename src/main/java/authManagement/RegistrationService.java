@@ -1,3 +1,10 @@
+package authManagement;
+
+import userManagement.InputService;
+import userManagement.User;
+import userManagement.UserManagement;
+import userManagement.Utils;
+
 import java.util.Map;
 import java.util.Scanner;
 

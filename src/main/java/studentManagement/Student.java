@@ -1,3 +1,8 @@
+package studentManagement;
+
+import courseManagement.Course;
+import userManagement.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
