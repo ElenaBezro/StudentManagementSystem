@@ -1,3 +1,9 @@
+package authManagement;
+
+import userManagement.InputService;
+import userManagement.UserManagement;
+import userManagement.Utils;
+
 import java.util.*;
 
 public class LoginService {
@@ -31,7 +37,7 @@ public class LoginService {
 
         if (isUserFound) {
             System.out.println("Logged in!");
-            System.out.println("User role: " + userManagement.getRole(login));
+            System.out.println("java.userManagement.User role: " + userManagement.getRole(login));
 
             systemState.put("isLoggedIn", true);
             userManagement.displayCommandsForUser();

@@ -1,3 +1,5 @@
+package studentManagement;
+
 import CustomExceptions.StudentIsNotRegisteredException;
 
 import java.util.ArrayList;

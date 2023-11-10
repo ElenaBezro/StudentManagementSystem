@@ -1,3 +1,5 @@
+package courseManagement;
+
 import CustomExceptions.CourseIsNotRegisteredException;
 
 import java.lang.reflect.Method;

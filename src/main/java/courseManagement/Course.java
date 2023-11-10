@@ -1,3 +1,7 @@
+package courseManagement;
+
+import studentManagement.Student;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,7 +62,7 @@ public class Course implements Comparable<Course>{
 
     @Override
     public String toString() {
-        return "Course: name = " + name + ", id = " + id;
+        return "java.courseManagement.Course: name = " + name + ", id = " + id;
     }
 
     @Override

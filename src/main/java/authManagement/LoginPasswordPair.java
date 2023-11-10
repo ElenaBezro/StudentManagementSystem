@@ -1,3 +1,5 @@
+package authManagement;
+
 public class LoginPasswordPair {
     private String login;
     private String password;

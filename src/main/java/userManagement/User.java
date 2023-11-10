@@ -1,3 +1,5 @@
+package userManagement;
+
 public class User {
     private String name;
     private int id;
@@ -25,6 +27,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "User: name = " + name + ", id = " + id;
+        return "java.userManagement.User: name = " + name + ", id = " + id;
     }
 }

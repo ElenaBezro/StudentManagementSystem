@@ -1,11 +1,16 @@
+package teacherManagement;
+
 import CustomExceptions.AdministerCourseDenyException;
 import CustomExceptions.StudentNotInTheCourseException;
+import courseManagement.Course;
+import gradingManagement.GradingSystem;
+import studentManagement.Student;
+import userManagement.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Teacher extends User {
-
     List<Course> coursesToAdminister = new ArrayList<>();
 
     public Teacher(String name, int id) {
@@ -15,7 +20,7 @@ public class Teacher extends User {
     public void setGrade(Course course, Student student, int grade) throws AdministerCourseDenyException {
         //try {
             if (coursesToAdminister.contains(course)) {
-                GradingSystem.addGrade(student, course, grade);
+                GradingSystem.getGradingSystem().addGrade(student, course, grade);
             } else {
                 throw new AdministerCourseDenyException();
             }

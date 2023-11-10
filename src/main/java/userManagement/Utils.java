@@ -1,3 +1,8 @@
+package userManagement;
+
+import authManagement.LoginPasswordPair;
+import roleManagement.Role;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

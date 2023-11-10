@@ -1,6 +1,6 @@
-## Student Management System
+## java.studentManagement.Student Management System
 
-The "Student Management System" is a software application designed to facilitate user registration, login, and role-based management. It also provides tools for managing student information, course data, a grading system, and search/sort functionality. Additionally, it ensures data persistence by allowing users to save and load data to/from a text file.
+The "java.studentManagement.Student Management System" is a software application designed to facilitate user registration, login, and role-based management. It also provides tools for managing student information, course data, a grading system, and search/sort functionality. Additionally, it ensures data persistence by allowing users to save and load data to/from a text file.
 
 ### Objectives
 
@@ -25,18 +25,18 @@ The "Student Management System" is a software application designed to facilitate
 
 ### Features
 
-1. **User Management:**
-    - **User Registration:** Users can register with the system and specify their roles as Admin, Teacher, or Student.
-    - **User Login:** Registered users can securely log into the system with their credentials.
-    - **Role-Based Management:** The system distinguishes between Admin, Teacher, and Student roles, each with specific privileges and access rights.
+1. **java.userManagement.User Management:**
+    - **java.userManagement.User Registration:** Users can register with the system and specify their roles as Admin, java.teacherManagement.Teacher, or java.studentManagement.Student.
+    - **java.userManagement.User Login:** Registered users can securely log into the system with their credentials.
+    - **java.roleManagement.Role-Based Management:** The system distinguishes between Admin, java.teacherManagement.Teacher, and java.studentManagement.Student roles, each with specific privileges and access rights.
 
-2. **Student Management:**
+2. **java.studentManagement.Student Management:**
     - **Create, Read, Update, Delete (CRUD):** The system offers CRUD operations for managing student data, allowing users to add, view, update, and delete student information.
-    - **Student Data:** Student records typically include details such as name, student ID, and enrolled courses.
+    - **java.studentManagement.Student Data:** java.studentManagement.Student records typically include details such as name, student ID, and enrolled courses.
 
-3. **Course Management:**
+3. **java.courseManagement.Course Management:**
     - **Create, Read, Update, Delete (CRUD):** Users can perform CRUD operations for managing course data, which includes course name, course ID, and enrolled students.
-    - **Course Data:** Course records store information about the course itself and the students who are enrolled.
+    - **java.courseManagement.Course Data:** java.courseManagement.Course records store information about the course itself and the students who are enrolled.
 
 4. **Grading System:**
     - **Assign and Modify Grades:** The system includes a grading system where teachers or admins can assign and modify grades for students enrolled in specific courses.
@@ -58,7 +58,7 @@ Test dependency: the project uses the junit-jupiter-engine version 5.2.0.
 
 To get the source, clone the git repository.
 ```sh
-git clone https://github.com/ElenaBezro/StudentManagementSystem
+git clone https://github.com/ElenaBezro/java.userManagement.StudentManagementSystem
 ```
 ### Building
 
