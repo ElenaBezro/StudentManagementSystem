@@ -62,7 +62,7 @@ public class Course implements Comparable<Course>{
 
     @Override
     public String toString() {
-        return "java.courseManagement.Course: name = " + name + ", id = " + id;
+        return "Course: name = " + name + ", id = " + id;
     }
 
     @Override

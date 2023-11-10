@@ -17,15 +17,15 @@ public class StudentManagementSystem {
     public StudentManagementSystem() {
         this.sc = InputService.getScanner();
         Utils.fillSystemInitialState(systemState);
-        //TODO: move java.dataPersistenceManagement.DataPersistenceService in this file and execute:
-        // initialize userManagement with new java.userManagement.UserManagement(dataPersistenceService.readUserDataIntoFile())?
+        //TODO: move DataPersistenceService in this file and execute:
+        // initialize userManagement with new UserManagement(dataPersistenceService.readUserDataIntoFile())?
         this.userManagement = new UserManagement();
         this.loginService = new LoginService(userManagement);
         this.registrationService = new RegistrationService(userManagement, loginService);
     }
 
     public void startSystem() {
-        System.out.println("Welcome to the java.studentManagement.Student Management System!");
+        System.out.println("Welcome to the Student Management System!");
 
         while (systemState.get("isRegistration") && !systemState.get("isLoggedIn")) {
             System.out.println("Enter 'login' or 'register' to enter system");
@@ -34,7 +34,7 @@ public class StudentManagementSystem {
             switch (command.toLowerCase()) {
                 //TODO: how not to pass shared systemState here, but to have access to
                 // it from different parts? For example, systemState.get("isLoggedIn") used
-                // here and also in java.authManagement.LoginService
+                // here and also in LoginService
                 case "login" -> loginService.login(systemState);
                 case "register" -> registrationService.registerUser(systemState);
                 case "exit" -> exit();
@@ -48,7 +48,7 @@ public class StudentManagementSystem {
         systemState.put("isRegistration", false);
         systemState.put("isExit", true);
         userManagement.writeUserDataIntoFile();
-        //TODO: move java.dataPersistenceManagement.DataPersistenceService in this file and execute:
+        //TODO: move DataPersistenceService in this file and execute:
         // dataPersistenceService.writeUserDataIntoFile(userList);
         System.out.println("Goodbye!");
         sc.close();

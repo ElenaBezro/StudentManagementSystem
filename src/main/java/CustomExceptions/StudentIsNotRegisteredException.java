@@ -2,6 +2,6 @@ package CustomExceptions;
 
 public class StudentIsNotRegisteredException extends Exception {
     public StudentIsNotRegisteredException() {
-            super("java.studentManagement.Student is not in the system");
+            super("Student is not in the system");
     }
 }

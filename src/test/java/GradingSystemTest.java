@@ -106,16 +106,16 @@ class GradingSystemTest {
 
         //act
         String result  = gradingSystem.printStudentsCoursesWithGradesMapInternally();
-        String expected = "java.userManagement.User: name = Lena, id = 1001\n"
+        String expected = "User: name = Lena, id = 1001\n"
                 + "----Math: 1\n---- German: 5\n"
-                + "java.userManagement.User: name = Lola, id = 1002\n"
+                + "User: name = Lola, id = 1002\n"
                 + "----Math: 4\n----German: 4";
 
         //assert
-        assertTrue(result.contains("java.userManagement.User: name = Lena, id = 1001"));
+        assertTrue(result.contains("User: name = Lena, id = 1001"));
         assertTrue(result.contains("----Math: 1"));
         assertTrue(result.contains("----German: 5"));
-        assertTrue(result.contains("java.userManagement.User: name = Lola, id = 1002"));
+        assertTrue(result.contains("User: name = Lola, id = 1002"));
         assertTrue(result.contains("----Math: 4"));
         assertTrue(result.contains("----German: 4"));
     }

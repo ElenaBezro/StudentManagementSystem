@@ -37,7 +37,7 @@ public class LoginService {
 
         if (isUserFound) {
             System.out.println("Logged in!");
-            System.out.println("java.userManagement.User role: " + userManagement.getRole(login));
+            System.out.println("User role: " + userManagement.getRole(login));
 
             systemState.put("isLoggedIn", true);
             userManagement.displayCommandsForUser();

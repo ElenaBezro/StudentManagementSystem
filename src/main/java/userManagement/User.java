@@ -27,6 +27,6 @@ public class User {
 
     @Override
     public String toString() {
-        return "java.userManagement.User: name = " + name + ", id = " + id;
+        return "User: name = " + name + ", id = " + id;
     }
 }
