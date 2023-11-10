@@ -5,8 +5,6 @@ import studentManagement.Student;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class GradingSystem {
     private static GradingSystem instance;
@@ -18,7 +16,7 @@ public class GradingSystem {
         studentsCoursesWithGrades = new ArrayList<>();
     }
 
-    public static GradingSystem getGradingSystem() {
+    public static GradingSystem getInstance() {
         if (instance == null) {
             instance = new GradingSystem();
         }
@@ -26,25 +24,23 @@ public class GradingSystem {
     }
 
     public void addGrade(Student student, Course course, int grade) {
-        for (StudentGrades studentGradee: studentsCoursesWithGrades) {
-            //TODO: override equals and hashcode in Student
-            if (studentGradee.getStudent().equals(student)) {
-                studentGradee.addGrade(course, grade);
+        for (StudentGrades studentGrade : studentsCoursesWithGrades) {
+            if (studentGrade.getStudent().equals(student)) {
+                studentGrade.addGrade(course, grade);
                 return;
             }
-
-            StudentGrades newStudentGrades = new StudentGrades(student);
-            newStudentGrades.addGrade(course, grade);
-
-            studentsCoursesWithGrades.add(newStudentGrades);
         }
+
+        StudentGrades newStudentGrades = new StudentGrades(student);
+        newStudentGrades.addGrade(course, grade);
+
+        studentsCoursesWithGrades.add(newStudentGrades);
     }
 
     public List<StudentGrades> getStudentsCoursesWithGrades() {
         return studentsCoursesWithGrades;
     }
 
-    //public Map<Student, Map<Course, Integer>> findStudentsWithBadAcademicPerformance() {
     public List<StudentGrades> findStudentsWithBadAcademicPerformance() {
         List<StudentGrades> result;
         result = getStudentsCoursesWithGrades()

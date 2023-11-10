@@ -14,12 +14,7 @@ public class Utils {
         userToPassword.add(new LoginPasswordPair("NonaLogin", "0000"));
     }
 
-    public static void fillUserWithMockData(List<User> userList, Map<String, Role> userLoginToRoleMap, Map<String, User> userLoginToUserMap) {
-
-        userLoginToRoleMap.put("LenaLogin", Role.STUDENT);
-        userLoginToRoleMap.put("MilaLogin", Role.TEACHER);
-        userLoginToRoleMap.put("NonaLogin", Role.ADMIN);
-
+    public static void fillUserWithMockData(List<User> userList, Map<String, User> userLoginToUserMap) {
         User user1 = new User("Lena", 1000);
         User user2 = new User("Mala", 1001);
         User user3 = new User("Nona", 1002);
@@ -30,6 +25,11 @@ public class Utils {
         userLoginToUserMap.put("LenaLogin", user1);
         userLoginToUserMap.put("MilaLogin", user2);
         userLoginToUserMap.put("NonaLogin", user3);
+    }
+    public static void fillLoginToRoleWithMockData(Map<String, Role> userLoginToRoleMap) {
+        userLoginToRoleMap.put("LenaLogin", Role.STUDENT);
+        userLoginToRoleMap.put("MilaLogin", Role.TEACHER);
+        userLoginToRoleMap.put("NonaLogin", Role.ADMIN);
     }
 
     public static Map<String, Role> fillSecretWordToRoleMap() {
