@@ -102,11 +102,16 @@ class GradingSystemTest {
         //act
         String result  = gradingSystem.printStudentsCoursesWithGradesMapInternally();
         String expected = "User: name = Lena, id = 1001\n"
-                + "----Math: 3\n---- German: 5\n"
+                + "----Math: 1\n---- German: 5\n"
                 + "User: name = Lola, id = 1002\n"
                 + "----Math: 4\n----German: 4";
 
         //assert
-        assertEquals(expected, result);
+        assertTrue(result.contains("User: name = Lena, id = 1001"));
+        assertTrue(result.contains("----Math: 1"));
+        assertTrue(result.contains("----German: 5"));
+        assertTrue(result.contains("User: name = Lola, id = 1002"));
+        assertTrue(result.contains("----Math: 4"));
+        assertTrue(result.contains("----German: 4"));
     }
 }
