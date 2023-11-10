@@ -10,7 +10,7 @@ public class StudentManagementSystem {
     private Map<String, Boolean> systemState = new HashMap<>();
 
     public StudentManagementSystem() {
-        this.sc = new Scanner(System.in);
+        this.sc = InputService.getScanner();
         Utils.fillSystemInitialState(systemState);
         //TODO: move DataPersistenceService in this file and execute:
         // initialize userManagement with new UserManagement(dataPersistenceService.readUserDataIntoFile())?
@@ -30,8 +30,8 @@ public class StudentManagementSystem {
                 //TODO: how not to pass shared systemState here, but to have access to
                 // it from different parts? For example, systemState.get("isLoggedIn") used
                 // here and also in LoginService
-                case "login" -> loginService.login(sc, systemState);
-                case "register" -> registrationService.registerUser(sc, systemState);
+                case "login" -> loginService.login(systemState);
+                case "register" -> registrationService.registerUser(systemState);
                 case "exit" -> exit();
                 default -> System.out.println("Invalid input");
             }

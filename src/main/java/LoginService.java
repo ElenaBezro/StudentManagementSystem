@@ -7,25 +7,27 @@ public class LoginService {
 
     private UserManagement userManagement;
     private Map<String, String> userLoginToPassword = new HashMap<>();
+    private Scanner sc;
     private int countWrongAttempt = 0;
     public static final int ALLOWED_WRONG_LOGIN_INPUT = 3;
 
     public LoginService(UserManagement userManagement) {
         this.userManagement = userManagement;
+        this.sc = InputService.getScanner();
         Utils.fillUserToPassword(userLoginToPassword);
     }
 
-    public void login(Scanner sc, Map<String, Boolean> systemState) {
+    public void login(Map<String, Boolean> systemState) {
         while (!systemState.get("isLoggedIn") && !systemState.get("isExit")) {
-            String[] data = getUserInputLoginData(sc);
+            String[] data = getUserInputLoginData();
             String login = data[0];
             String password = data[1];
 
-            login(login, password, systemState, sc);
+            login(login, password, systemState);
         }
     }
 
-    public void login(String login, String password, Map<String, Boolean> systemState, Scanner sc) {
+    public void login(String login, String password, Map<String, Boolean> systemState) {
         boolean isUserFound = findLoginPasswordsPair(login, password);
 
         if (isUserFound) {
@@ -33,7 +35,7 @@ public class LoginService {
             System.out.println("User role: " + userManagement.getRole(login));
 
             systemState.put("isLoggedIn", true);
-            userManagement.displayCommandsForUser(sc);
+            userManagement.displayCommandsForUser();
         } else {
             countWrongAttempt += 1;
             System.out.println("Invalid login or password!");
@@ -71,7 +73,7 @@ public class LoginService {
         userLoginToPassword.put(login, password);
     }
 
-    public String[] getUserInputLoginData(Scanner sc) {
+    public String[] getUserInputLoginData() {
         System.out.println("Enter login");
         String login = sc.nextLine();
         System.out.println("Enter password");
