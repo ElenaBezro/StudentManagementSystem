@@ -3,10 +3,10 @@ import java.util.List;
 import java.util.Map;
 
 public class Utils {
-    public static void fillUserToPassword(Map<String, String> userToPassword) {
-        userToPassword.put("LenaLogin", "0000");
-        userToPassword.put("MilaLogin", "0000");
-        userToPassword.put("NonaLogin", "0000");
+    public static void fillUserToPassword(List<LoginPasswordPair> userToPassword) {
+        userToPassword.add(new LoginPasswordPair("LenaLogin", "0000"));
+        userToPassword.add(new LoginPasswordPair("MilaLogin", "0000"));
+        userToPassword.add(new LoginPasswordPair("NonaLogin", "0000"));
     }
 
     public static void fillUserWithMockData(List<User> userList, Map<String, Role> userLoginToRoleMap, Map<String, User> userLoginToUserMap) {

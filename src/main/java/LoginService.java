@@ -1,27 +1,26 @@
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 public class LoginService {
     //TODO: move operations with scanner, systemState to a LoginController
 
     private UserManagement userManagement;
-    private Map<String, String> userLoginToPassword = new HashMap<>();
+    private List<LoginPasswordPair> userLoginToPassword;
     private Scanner sc;
     private int countWrongAttempt = 0;
     public static final int ALLOWED_WRONG_LOGIN_INPUT = 3;
 
     public LoginService(UserManagement userManagement) {
         this.userManagement = userManagement;
+        this.userLoginToPassword = new ArrayList<>();
         this.sc = InputService.getScanner();
         Utils.fillUserToPassword(userLoginToPassword);
     }
 
     public void login(Map<String, Boolean> systemState) {
         while (!systemState.get("isLoggedIn") && !systemState.get("isExit")) {
-            String[] data = getUserInputLoginData();
-            String login = data[0];
-            String password = data[1];
+            LoginPasswordPair data = getUserInputLoginData();
+            String login = data.getLogin();
+            String password = data.getPassword();
 
             login(login, password, systemState);
         }
@@ -50,34 +49,32 @@ public class LoginService {
     }
 
     public boolean findLoginPasswordsPair(String login, String password) {
-        boolean isUserFound = false;
-        for (Map.Entry<String, String> user : userLoginToPassword.entrySet()) {
-            if (user.getKey().equals(login) && user.getValue().equals(password)) {
-                isUserFound = true;
+        for (LoginPasswordPair pair : userLoginToPassword) {
+            if (pair.getLogin().equals(login) && pair.getPassword().equals(password)) {
+                return true;
             }
         }
-        return isUserFound;
+        return false;
     }
 
     public boolean isUserLoginAvailable(String login) {
-        return userLoginToPassword.get(login) == null;
+        for (LoginPasswordPair pair: userLoginToPassword) {
+            if (pair.getLogin().equals(login)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void storeLoginToPassword(String login, String password) {
-        userLoginToPassword.put(login, password);
+        userLoginToPassword.add(new LoginPasswordPair(login, password));
     }
 
-    public void addLoginToPassword(String[] userInputLoginData) {
-        String login = userInputLoginData[0];
-        String password = userInputLoginData[1];
-        userLoginToPassword.put(login, password);
-    }
-
-    public String[] getUserInputLoginData() {
+    public LoginPasswordPair getUserInputLoginData() {
         System.out.println("Enter login");
         String login = sc.nextLine();
         System.out.println("Enter password");
         String password = sc.nextLine();
-        return (new String[]{login, password});
+        return (new LoginPasswordPair(login, password));
     }
 }

@@ -15,7 +15,7 @@ public class RegistrationService {
     }
 
     public void registerUser(Map<String, Boolean> systemState) {
-        String[] data = loginService.getUserInputLoginData();
+        LoginPasswordPair data = loginService.getUserInputLoginData();
 
         boolean isValid = validateUserInputLoginData(data);
         while (!isValid) {
@@ -23,15 +23,16 @@ public class RegistrationService {
             isValid = validateUserInputLoginData(data);
         }
 
-        boolean isUserLoginAvailable = loginService.isUserLoginAvailable(data[0]);
+        String login = data.getLogin();
+
+        boolean isUserLoginAvailable = loginService.isUserLoginAvailable(login);
         while (!isUserLoginAvailable) {
             System.out.println("Login is not available");
-            data = loginService.getUserInputLoginData();
-            isUserLoginAvailable = loginService.isUserLoginAvailable(data[0]);
+            login = loginService.getUserInputLoginData().getLogin();
+            isUserLoginAvailable = loginService.isUserLoginAvailable(login);
         }
 
-        String login = data[0];
-        String password = data[1];
+        String password = data.getPassword();
 
         boolean isRoleSetted = false;
         while (!isRoleSetted) {
@@ -50,13 +51,13 @@ public class RegistrationService {
         loginService.storeLoginToPassword(login, password);
     }
 
-    public boolean validateUserInputLoginData(String[] data) {
+    public boolean validateUserInputLoginData(LoginPasswordPair data) {
         boolean isValid = true;
-        if (data[0].trim().isEmpty()) {
+        if (data.getLogin().trim().isEmpty()) {
             isValid = false;
             System.out.println("Empty login are not allowed.");
         }
-        if (data[1].length() < 4) {
+        if (data.getPassword().length() < 4) {
             isValid = false;
             System.out.println("The password must consist of a minimum of four characters or digits.");
         }
