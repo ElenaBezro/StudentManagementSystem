@@ -2,21 +2,21 @@ package userManagement;
 
 import dataPersistenceManagement.DataPersistenceService;
 import roleManagement.Role;
+import roleManagement.RoleService;
 
 import java.util.*;
 
 public class UserManagement {
-    private DataPersistenceService dataPersistenceService = new DataPersistenceService();
+    private DataPersistenceService dataPersistenceService;
+    private RoleService roleService;
     private List<User> userList = new ArrayList<>();
     private Map<String, User> userLoginToUserMap = new HashMap<>();
-
-    //TODO: move role logic to a separate file
-    private Map<String, Role> userLoginToRoleMap = new HashMap<>();
-    private Role currentUserRole;
     private Scanner sc;
 
     public UserManagement() {
-        Utils.fillUserWithMockData(userList, userLoginToRoleMap, userLoginToUserMap);
+        dataPersistenceService = new DataPersistenceService();
+        roleService = new RoleService();
+        Utils.fillUserWithMockData(userList, userLoginToUserMap);
         //TODO: save in other files userLoginToUserMap, userLoginToRoleMap and restore here
         //userList = dataPersistenceService.readUserDataFromFile();
         this.sc = InputService.getScanner();
@@ -27,19 +27,7 @@ public class UserManagement {
     }
 
     public boolean setUsersRole() {
-        boolean isSet = true;
-        System.out.println("Enter a SECRET WORD for your role. Tip: student/teacher/admin");
-        String role = sc.nextLine();
-        switch (role.toLowerCase()) {
-            case "student" -> currentUserRole = Role.STUDENT;
-            case "teacher" -> currentUserRole = Role.TEACHER;
-            case "admin" -> currentUserRole = Role.ADMIN;
-            default -> {
-                System.out.println("Invalid input");
-                isSet = false;
-            }
-        }
-        return isSet;
+        return roleService.setUserRole();
     }
 
     public void setUserLoginToUserMap(String login, User user) {
@@ -47,24 +35,24 @@ public class UserManagement {
     }
 
     public Role getRole(String login) {
-        return userLoginToRoleMap.get(login);
+        return roleService.getRole(login);
     }
 
-    public void setUserRole(String login) {
-        userLoginToRoleMap.put(login, currentUserRole);
+    public void setLoginToRole(String login) {
+        roleService.setLoginToRole(login);
     }
 
     public void addUser(User user, String login, String password) {
         userList.add(user);
         setUserLoginToUserMap(login, user);
-        setUserRole(login);
+        roleService.setLoginToRole(login);
     }
 
     public void deleteUser(User userToDelete) {
         userList.remove(userToDelete);
         String loginToDelete = findUserLogin(userToDelete);
         userLoginToUserMap.remove(loginToDelete);
-        userLoginToRoleMap.remove(loginToDelete);
+        roleService.removeLoginToRole(loginToDelete);
 
     }
 

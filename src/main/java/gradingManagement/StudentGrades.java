@@ -28,6 +28,11 @@ public class StudentGrades {
     }
 
     public boolean hasLowThenMinimumGrades(Integer minimumPassingGrade) {
-        return true;
+        for (int grade : grades.values()) {
+            if (grade < minimumPassingGrade) {
+               return true;
+            }
+        }
+        return false;
     }
 }
