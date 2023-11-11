@@ -78,4 +78,8 @@ public class GradingSystem {
     public void printStudentsCoursesWithGradesMap() {
         System.out.println(printStudentsCoursesWithGradesMapInternally());
     }
+
+    public void reset() {
+        studentsCoursesWithGrades = new ArrayList<>();
+    }
 }

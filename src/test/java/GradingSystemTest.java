@@ -1,6 +1,7 @@
 import courseManagement.Course;
 import gradingManagement.GradingSystem;
 import gradingManagement.StudentGrades;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import studentManagement.Student;
@@ -11,13 +12,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GradingSystemTest {
+    GradingSystem gradingSystem = GradingSystem.getInstance();
+
+    @AfterEach
+    void tearDown() {
+        gradingSystem.reset();
+    }
 
     @Test
     @DisplayName("Test that the result contains students with low grades")
     void findStudentsWithBadAcademicPerformancePositive() {
         //arrange
-        GradingSystem gradingSystem = GradingSystem.getInstance();
-
         Student student1 = new Student("Lena", 1001);
         Student student2 = new Student("Lola", 1002);
 
@@ -42,8 +47,6 @@ class GradingSystemTest {
     @DisplayName("Test that the result is empty when all students have high grades")
     void findStudentsWithBadAcademicPerformanceEmpty() {
         //arrange
-        GradingSystem gradingSystem = GradingSystem.getInstance();
-
         Student student1 = new Student("Lena", 1001);
         Student student2 = new Student("Lola", 1002);
 
@@ -66,7 +69,6 @@ class GradingSystemTest {
     @DisplayName("Test that the result is empty if grades = minimum passing grade")
     void findStudentsWithBadAcademicPerformanceEdgeCase() {
         //arrange
-        GradingSystem gradingSystem = GradingSystem.getInstance();
         int edgeCaseValue = GradingSystem.MINIMUM_PASSING_GRADE;
 
         Student student1 = new Student("Lena", 1001);
@@ -91,8 +93,6 @@ class GradingSystemTest {
     @Test
     void printStudentsCoursesWithGradesMap() {
         //arrange
-        GradingSystem gradingSystem = GradingSystem.getInstance();
-
         Student student1 = new Student("Lena", 1001);
         Student student2 = new Student("Lola", 1002);
 
