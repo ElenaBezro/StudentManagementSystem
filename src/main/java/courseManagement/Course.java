@@ -2,10 +2,7 @@ package courseManagement;
 
 import studentManagement.Student;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Course implements Comparable<Course>{
     String name;
@@ -63,6 +60,19 @@ public class Course implements Comparable<Course>{
     @Override
     public String toString() {
         return "Course: name = " + name + ", id = " + id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Course course = (Course) o;
+        return id == course.id && Objects.equals(name, course.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id);
     }
 
     @Override
