@@ -18,7 +18,7 @@ public class UserManagement {
         roleService = new RoleService();
         Utils.fillUserWithMockData(userList, userLoginToUserMap);
         //TODO: save in other files userLoginToUserMap, userLoginToRoleMap and restore here
-        //userList = dataPersistenceService.readUserDataFromFile();
+        userList = dataPersistenceService.readUserDataFromFile();
         this.sc = InputService.getScanner();
     }
 
