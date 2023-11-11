@@ -1,27 +1,22 @@
 package authManagement;
 
-import userManagement.InputService;
 import userManagement.User;
 import userManagement.UserManagement;
 import userManagement.Utils;
 
-import java.util.Map;
-import java.util.Scanner;
 
 public class RegistrationService {
     //TODO: move operations with scanner, systemState, validation, isUserLoginAvailable  to a RegistrationController
 
     UserManagement userManagement;
     LoginService loginService;
-    private Scanner sc;
 
     public RegistrationService(UserManagement userManagement, LoginService loginService) {
         this.userManagement = userManagement;
         this.loginService = loginService;
-        this.sc = InputService.getScanner();
     }
 
-    public void registerUser(Map<String, Boolean> systemState) {
+    public void registerUser() {
         LoginPasswordPair data = loginService.getUserInputLoginData();
 
         boolean isValid = validateUserInputLoginData(data);
@@ -50,7 +45,7 @@ public class RegistrationService {
         User user = Utils.generateUser(login, userManagement.getUsersCount());
         storeUserInSystem(user, login, password);
 
-        loginService.login(login, password, systemState);
+        loginService.login(login, password);
     }
 
     public void storeUserInSystem(User user, String login, String password) {

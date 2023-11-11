@@ -40,13 +40,6 @@ public class Utils {
         return secretWordToRoleMap;
     }
 
-    public static void fillSystemInitialState(Map<String, Boolean> systemState) {
-        systemState.put("isRegistration", true);
-        systemState.put("isExit", false);
-        systemState.put("isLoggedIn", false);
-        systemState.put("isUserMenuOpen", true);
-    }
-
     public static int generateUserId(int userListSize) {
         return 1000 + userListSize;
     }

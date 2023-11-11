@@ -1,6 +1,7 @@
 package authManagement;
 
 import userManagement.InputService;
+import userManagement.StudentManagementSystem;
 import userManagement.UserManagement;
 import userManagement.Utils;
 
@@ -22,34 +23,33 @@ public class LoginService {
         Utils.fillUserToPassword(userLoginToPassword);
     }
 
-    public void login(Map<String, Boolean> systemState) {
-        while (!systemState.get("isLoggedIn") && !systemState.get("isExit")) {
+    public void login() {
+        boolean isLoggedIn = StudentManagementSystem.getInstance().isLoggedIn();
+        boolean isExit = StudentManagementSystem.getInstance().isExit();
+        while (!isLoggedIn && !isExit) {
             LoginPasswordPair data = getUserInputLoginData();
             String login = data.getLogin();
             String password = data.getPassword();
 
-            login(login, password, systemState);
+            login(login, password);
         }
     }
 
-    public void login(String login, String password, Map<String, Boolean> systemState) {
+    public void login(String login, String password) {
         boolean isUserFound = findLoginPasswordsPair(login, password);
 
         if (isUserFound) {
             System.out.println("Logged in!");
             System.out.println("User role: " + userManagement.getRole(login));
 
-            systemState.put("isLoggedIn", true);
+            StudentManagementSystem.getInstance().setLoggedIn(true);
             userManagement.displayCommandsForUser();
         } else {
             countWrongAttempt += 1;
             System.out.println("Invalid login or password!");
             System.out.println("Attempts available: " + (ALLOWED_WRONG_LOGIN_INPUT - countWrongAttempt));
             if (countWrongAttempt >= ALLOWED_WRONG_LOGIN_INPUT) {
-                systemState.put("isRegistration", false);
-                systemState.put("isExit", true);
-                System.out.println("Goodbye!");
-                sc.close();
+                StudentManagementSystem.getInstance().exit();
             }
         }
     }

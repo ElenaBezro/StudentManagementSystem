@@ -87,21 +87,22 @@ public class UserManagement {
     }
 
     public void displayCommandsForUser() {
+        boolean isUserMenuOpen = StudentManagementSystem.getInstance().isUserMenuOpen();
         //TODO: display different commands for different roles
-//        while (isUserMenuOpen) {
-//            System.out.println("Enter command");
-//            String command = sc.nextLine();
+        while (isUserMenuOpen) {
+            System.out.println("Enter command: ");
+            String command = sc.nextLine();
 
-//            switch (command.toLowerCase()) {
-//                case "exit" -> exit();
-//                default -> System.out.println("Invalid input");
-//            }
-//        }
+            switch (command.toLowerCase()) {
+                case "exit" -> StudentManagementSystem.getInstance().exit();
+                default -> System.out.println("Invalid input");
+            }
+        }
         exit();
     }
 
     public void exit() {
         dataPersistenceService.writeUserDataIntoFile(userList);
-        sc.close();
+        StudentManagementSystem.getInstance().exit();
     }
 }
