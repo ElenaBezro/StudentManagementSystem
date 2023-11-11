@@ -42,7 +42,7 @@ public class UserManagement {
         roleService.setLoginToRole(login);
     }
 
-    public void addUser(User user, String login, String password) {
+    public void addUser(User user, String login) {
         userList.add(user);
         setUserLoginToUserMap(login, user);
         roleService.setLoginToRole(login);

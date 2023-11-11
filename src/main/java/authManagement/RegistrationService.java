@@ -49,7 +49,7 @@ public class RegistrationService {
     }
 
     public void storeUserInSystem(User user, String login, String password) {
-        userManagement.addUser(user, login, password);
+        userManagement.addUser(user, login);
         loginService.storeLoginToPassword(login, password);
     }
 
