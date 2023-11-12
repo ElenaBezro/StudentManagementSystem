@@ -3,19 +3,18 @@ package userManagement;
 import authManagement.LoginService;
 import authManagement.RegistrationService;
 import dataPersistenceManagement.DataPersistenceService;
-import roleManagement.Role;
 import roleManagement.RoleService;
 
 import java.util.Scanner;
 
 public class StudentManagementSystem {
     private static StudentManagementSystem instance;
-    private UserManagement userManagement;
-    private RegistrationService registrationService;
-    private LoginService loginService;
-    private RoleService roleService;
+    private final UserManagement userManagement;
+    private final RegistrationService registrationService;
+    private final LoginService loginService;
+    private final RoleService roleService;
     private DataPersistenceService dataPersistenceService;
-    private Scanner sc;
+    private final Scanner sc;
     private boolean isRegistration = true;
     private boolean isExit = false;
     private boolean isLoggedIn = false;

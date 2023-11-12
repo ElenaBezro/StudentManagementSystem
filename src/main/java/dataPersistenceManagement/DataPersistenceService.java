@@ -24,8 +24,6 @@ public class DataPersistenceService {
                 writer.write(user.getName() + SEPARATOR + user.getId());
                 writer.newLine();
             }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -43,9 +41,6 @@ public class DataPersistenceService {
                 }
             });
 
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
-
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -58,8 +53,6 @@ public class DataPersistenceService {
                 writer.write(pair.getLogin() + SEPARATOR + pair.getPassword());
                 writer.newLine();
             }
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -76,8 +69,6 @@ public class DataPersistenceService {
                     throw new RuntimeException(e);
                 }
             });
-        } catch (FileNotFoundException e) {
-            System.out.println(e.getMessage());
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
@@ -98,8 +89,6 @@ public class DataPersistenceService {
                 }
             }
             return users;
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -121,8 +110,6 @@ public class DataPersistenceService {
                 }
             }
             return userLoginToUserMap;
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -143,8 +130,6 @@ public class DataPersistenceService {
                 }
             }
             return loginToPassword;
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
@@ -165,8 +150,6 @@ public class DataPersistenceService {
                 }
             }
             return userLoginToRoleMap;
-        } catch (FileNotFoundException ex) {
-            throw new RuntimeException(ex);
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }

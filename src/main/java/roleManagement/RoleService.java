@@ -1,13 +1,12 @@
 package roleManagement;
 
 import userManagement.InputService;
-import userManagement.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RoleService {
-    private Map<String, Role> userLoginToRoleMap = new HashMap<>();
+    private final Map<String, Role> userLoginToRoleMap;
     private Role currentUserRole;
 
     public RoleService(Map<String, Role> userLoginToRoleMap) {

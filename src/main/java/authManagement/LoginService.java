@@ -3,16 +3,15 @@ package authManagement;
 import userManagement.InputService;
 import userManagement.StudentManagementSystem;
 import userManagement.UserManagement;
-import userManagement.Utils;
 
 import java.util.*;
 
 public class LoginService {
     //TODO: move operations with scanner, systemState to a LoginController
 
-    private UserManagement userManagement;
+    private final UserManagement userManagement;
     private List<LoginPasswordPair> userLoginToPassword;
-    private Scanner sc;
+    private final Scanner sc;
     private int countWrongAttempt = 0;
     public static final int ALLOWED_WRONG_LOGIN_INPUT = 3;
 

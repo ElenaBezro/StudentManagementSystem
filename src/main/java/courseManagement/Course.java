@@ -8,7 +8,7 @@ public class Course implements Comparable<Course>{
     String name;
     int id;
     private List<Student> studentList = new ArrayList<>();
-    private Map<Student, Integer> studentGrades = new HashMap<>();
+    private final Map<Student, Integer> studentGrades = new HashMap<>();
 
     public Course(String name, int id) {
         this.name = name;

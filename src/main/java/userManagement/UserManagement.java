@@ -6,10 +6,10 @@ import roleManagement.RoleService;
 import java.util.*;
 
 public class UserManagement {
-    private RoleService roleService;
-    private List<User> userList;
-    private Map<String, User> userLoginToUserMap;
-    private Scanner sc;
+    private final RoleService roleService;
+    private final List<User> userList;
+    private final Map<String, User> userLoginToUserMap;
+    private final Scanner sc;
 
     public UserManagement(RoleService roleService, List<User> userList, Map<String, User> userLoginToUserMap) {
         this.roleService = roleService;
