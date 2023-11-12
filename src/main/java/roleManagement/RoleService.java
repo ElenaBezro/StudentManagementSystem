@@ -10,11 +10,15 @@ public class RoleService {
     private Map<String, Role> userLoginToRoleMap = new HashMap<>();
     private Role currentUserRole;
 
-    public RoleService() {
-        Utils.fillLoginToRoleWithMockData(userLoginToRoleMap);
+    public RoleService(Map<String, Role> userLoginToRoleMap) {
+        this.userLoginToRoleMap = userLoginToRoleMap;
     }
 
-    public boolean setUserRole() {
+    public Map<String, Role> getUserLoginToRoleMap() {
+        return userLoginToRoleMap;
+    }
+
+    public boolean setCurrentUserRole() {
         boolean isSet = true;
         System.out.println("Enter a SECRET WORD for your role. Tip: student/teacher/admin");
         String role = InputService.getScanner().nextLine();
@@ -30,6 +34,10 @@ public class RoleService {
         return isSet;
     }
 
+    public Role getCurrentRole() {
+        return currentUserRole;
+    }
+
     public Role getRole(String login) {
         return userLoginToRoleMap.get(login);
     }
@@ -38,9 +46,7 @@ public class RoleService {
         userLoginToRoleMap.remove(loginToDelete);
     }
 
-    public void setLoginToRole(String login) {
-        userLoginToRoleMap.put(login, currentUserRole);
+    public void setLoginToRole(String login, Role role) {
+        userLoginToRoleMap.put(login, role);
     }
-
-
 }

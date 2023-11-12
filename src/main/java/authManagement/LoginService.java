@@ -16,17 +16,20 @@ public class LoginService {
     private int countWrongAttempt = 0;
     public static final int ALLOWED_WRONG_LOGIN_INPUT = 3;
 
-    public LoginService(UserManagement userManagement) {
+    public LoginService(UserManagement userManagement, List<LoginPasswordPair> userLoginToPassword) {
         this.userManagement = userManagement;
         this.userLoginToPassword = new ArrayList<>();
         this.sc = InputService.getScanner();
-        Utils.fillUserToPassword(userLoginToPassword);
+        this.userLoginToPassword = userLoginToPassword;
+    }
+
+    public List<LoginPasswordPair> getUserLoginToPassword() {
+        return userLoginToPassword;
     }
 
     public void login() {
-        boolean isLoggedIn = StudentManagementSystem.getInstance().isLoggedIn();
-        boolean isExit = StudentManagementSystem.getInstance().isExit();
-        while (!isLoggedIn && !isExit) {
+        while (!StudentManagementSystem.getInstance().isLoggedIn() &&
+                !StudentManagementSystem.getInstance().isExit()) {
             LoginPasswordPair data = getUserInputLoginData();
             String login = data.getLogin();
             String password = data.getPassword();

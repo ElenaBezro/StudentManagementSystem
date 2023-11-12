@@ -14,4 +14,14 @@ public class InputService {
         }
         return instance;
     }
+
+    public static String getUserName() {
+        System.out.println("Enter User name: ");
+        String name = instance.nextLine();
+        while (name.isBlank() || name.isEmpty()) {
+            System.out.println("Invalid input");
+            getUserName();
+        }
+        return name;
+    }
 }

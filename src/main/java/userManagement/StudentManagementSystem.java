@@ -2,6 +2,9 @@ package userManagement;
 
 import authManagement.LoginService;
 import authManagement.RegistrationService;
+import dataPersistenceManagement.DataPersistenceService;
+import roleManagement.Role;
+import roleManagement.RoleService;
 
 import java.util.Scanner;
 
@@ -10,6 +13,8 @@ public class StudentManagementSystem {
     private UserManagement userManagement;
     private RegistrationService registrationService;
     private LoginService loginService;
+    private RoleService roleService;
+    private DataPersistenceService dataPersistenceService;
     private Scanner sc;
     private boolean isRegistration = true;
     private boolean isExit = false;
@@ -18,11 +23,12 @@ public class StudentManagementSystem {
 
     private StudentManagementSystem() {
         this.sc = InputService.getScanner();
-        //TODO: move DataPersistenceService in this file and execute:
-        // initialize userManagement with new UserManagement(dataPersistenceService.readUserDataIntoFile())?
-        this.userManagement = new UserManagement();
-        this.loginService = new LoginService(userManagement);
+        this.dataPersistenceService = new DataPersistenceService();
+        this.roleService = new RoleService(dataPersistenceService.readLoginToRoleFromFile());
+        this.userManagement = new UserManagement(roleService, dataPersistenceService.readUserListFromFile(), dataPersistenceService.readLoginToUserFromFile());
+        this.loginService = new LoginService(userManagement, dataPersistenceService.readLoginToPasswordFromFile());
         this.registrationService = new RegistrationService(userManagement, loginService);
+        this.dataPersistenceService = new DataPersistenceService();
     }
 
     public void setRegistration(boolean registration) {
@@ -76,12 +82,17 @@ public class StudentManagementSystem {
         }
     }
 
+    public void writeAllDataIntoFiles() {
+        dataPersistenceService.writeUserListIntoFile(userManagement.getUserList());
+        dataPersistenceService.writeLoginToUserIntoFile(userManagement.getUserLoginToUserMap());
+        dataPersistenceService.writeLoginToPasswordIntoFile(loginService.getUserLoginToPassword());
+        dataPersistenceService.writeLoginToRoleIntoFile(roleService.getUserLoginToRoleMap());
+    }
+
     public void exit() {
         instance.setRegistration(false);
         instance.setExit(true);
-        userManagement.writeUserDataIntoFile();
-        //TODO: move DataPersistenceService in this file and execute:
-        // dataPersistenceService.writeUserDataIntoFile(userList);
+        writeAllDataIntoFiles();
         System.out.println("Goodbye!");
         sc.close();
     }

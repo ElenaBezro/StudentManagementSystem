@@ -1,5 +1,7 @@
 package authManagement;
 
+import roleManagement.Role;
+import userManagement.InputService;
 import userManagement.User;
 import userManagement.UserManagement;
 import userManagement.Utils;
@@ -38,18 +40,19 @@ public class RegistrationService {
 
         boolean isRoleSetted = false;
         while (!isRoleSetted) {
-            isRoleSetted = userManagement.setUsersRole();
+            isRoleSetted = userManagement.setCurrentUsersRole();
         }
 
-        //TODO: get user input for user name
-        User user = Utils.generateUser(login, userManagement.getUsersCount());
+        String name = InputService.getUserName();
+        User user = Utils.generateUser(name, userManagement.getUsersCount());
         storeUserInSystem(user, login, password);
 
         loginService.login(login, password);
     }
 
     public void storeUserInSystem(User user, String login, String password) {
-        userManagement.addUser(user, login);
+        Role role = userManagement.getCurrentRole();
+        userManagement.addUser(user, login, role);
         loginService.storeLoginToPassword(login, password);
     }
 
