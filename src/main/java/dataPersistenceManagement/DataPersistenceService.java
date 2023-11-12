@@ -118,7 +118,7 @@ public class DataPersistenceService {
     public List<LoginPasswordPair> readLoginToPasswordFromFile() {
         List<LoginPasswordPair> loginToPassword = new ArrayList<>();
 
-        try (FileReader fr = new FileReader(LOGIN_TO_USER_FILE);
+        try (FileReader fr = new FileReader(LOGIN_TO_PASSWORD_FILE);
              BufferedReader br = new BufferedReader(fr)) {
             String line;
             while ((line = br.readLine()) != null) {

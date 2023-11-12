@@ -3,7 +3,9 @@ package userManagement;
 import roleManagement.Role;
 import roleManagement.RoleService;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
 
 public class UserManagement {
     private final RoleService roleService;
@@ -30,8 +32,12 @@ public class UserManagement {
         return userList.size();
     }
 
-    public boolean setCurrentUsersRole() {
+    public boolean setCurrentUserRole() {
         return roleService.setCurrentUserRole();
+    }
+
+    public void setCurrentUserRole(Role role) {
+        roleService.setCurrentUserRole(role);
     }
 
     public void setUserLoginToUserMap(String login, User user) {
@@ -84,6 +90,22 @@ public class UserManagement {
         userLoginToUserMap.put(login, userToUpdate);
     }
 
+    public void updateUser() {
+        System.out.println("Enter user id: ");
+        int id = Integer.parseInt(sc.nextLine());
+        User userToUpdate;
+        for (User user : userList) {
+            if (user.getId() == id) {
+                System.out.println("Enter new user name: ");
+                String name = sc.nextLine();
+                userToUpdate = new User(name, id);
+                updateUser(userToUpdate);
+                return;
+            }
+        }
+        System.out.println("Invalid id");
+    }
+
     public void displayUsers() {
         for (User user : userList) {
             System.out.println(user);
@@ -91,15 +113,26 @@ public class UserManagement {
     }
 
     public void displayCommandsForUser() {
-//        switch (roleService.getCurrentRole()) {
-//            case ADMIN -> displayAdminOptions();
-//            case STUDENT -> displayStudentOptions();
-//            case TEACHER -> displayTeacherOptions();
-//        }
-//
-//        handleUserCommand();
-//
-//        //boolean isUserMenuOpen = StudentManagementSystem.getInstance().isUserMenuOpen();
+        switch (roleService.getCurrentRole()) {
+            case ADMIN -> displayAdminOptions();
+            //case STUDENT -> displayStudentOptions();
+            //case TEACHER -> displayTeacherOptions();
+        }
+    }
+
+    public void displayAdminOptions() {
+        while (StudentManagementSystem.getInstance().isUserMenuOpen()) {
+            System.out.println("Enter 'display' to display all users");
+            System.out.println("Enter 'add' to add user");
+            System.out.println("Enter 'update' to update user");
+            System.out.println("Enter 'delete' to delete user");
+            System.out.println("Enter 'exit' to exit system");
+            String command = sc.nextLine();
+            handleUserCommand(command);
+        }
+    }
+
+    //        //boolean isUserMenuOpen = StudentManagementSystem.getInstance().isUserMenuOpen();
 //        while (isUserMenuOpen) {
 //            System.out.println("Enter command: ");
 //            String command = sc.nextLine();
@@ -109,6 +142,18 @@ public class UserManagement {
 //                default -> System.out.println("Invalid input");
 //            }
 //        }
-        StudentManagementSystem.getInstance().exit();
+    public void handleUserCommand(String command) {
+        if (roleService.getCurrentRole().equals(Role.ADMIN)) {
+            switch (command.toLowerCase()) {
+                case "display" -> displayUsers();
+                //case "add" -> addUser();
+                case "update" -> updateUser();
+                //case "delete" -> deleteUser();
+                case "exit" -> StudentManagementSystem.getInstance().exit();
+                default -> System.out.println("Invalid input");
+            }
+        }
     }
+
+
 }

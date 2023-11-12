@@ -91,6 +91,7 @@ public class StudentManagementSystem {
     public void exit() {
         instance.setRegistration(false);
         instance.setExit(true);
+        instance.setUserMenuOpen(false);
         writeAllDataIntoFiles();
         System.out.println("Goodbye!");
         sc.close();

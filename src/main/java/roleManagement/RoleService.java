@@ -33,7 +33,12 @@ public class RoleService {
         return isSet;
     }
 
-    public Role getCurrentRole() {
+    public void setCurrentUserRole(Role role) {
+        currentUserRole = role;
+    }
+
+
+        public Role getCurrentRole() {
         return currentUserRole;
     }
 
