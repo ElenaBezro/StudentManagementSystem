@@ -1,33 +1,37 @@
 package userManagement;
 
-import dataPersistenceManagement.DataPersistenceService;
 import roleManagement.Role;
 import roleManagement.RoleService;
 
 import java.util.*;
 
 public class UserManagement {
-    private DataPersistenceService dataPersistenceService;
-    private RoleService roleService;
-    private List<User> userList = new ArrayList<>();
-    private Map<String, User> userLoginToUserMap = new HashMap<>();
-    private Scanner sc;
+    private final RoleService roleService;
+    private final List<User> userList;
+    private final Map<String, User> userLoginToUserMap;
+    private final Scanner sc;
 
-    public UserManagement() {
-        dataPersistenceService = new DataPersistenceService();
-        roleService = new RoleService();
-        Utils.fillUserWithMockData(userList, userLoginToUserMap);
-        //TODO: save in other files userLoginToUserMap, userLoginToRoleMap and restore here
-        //userList = dataPersistenceService.readUserDataFromFile();
+    public UserManagement(RoleService roleService, List<User> userList, Map<String, User> userLoginToUserMap) {
+        this.roleService = roleService;
+        this.userLoginToUserMap = userLoginToUserMap;
+        this.userList = userList;
         this.sc = InputService.getScanner();
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public Map<String, User> getUserLoginToUserMap() {
+        return userLoginToUserMap;
     }
 
     public int getUsersCount() {
         return userList.size();
     }
 
-    public boolean setUsersRole() {
-        return roleService.setUserRole();
+    public boolean setCurrentUsersRole() {
+        return roleService.setCurrentUserRole();
     }
 
     public void setUserLoginToUserMap(String login, User user) {
@@ -38,14 +42,18 @@ public class UserManagement {
         return roleService.getRole(login);
     }
 
-    public void setLoginToRole(String login) {
-        roleService.setLoginToRole(login);
+    public Role getCurrentRole() {
+        return roleService.getCurrentRole();
     }
 
-    public void addUser(User user, String login) {
+    public void setLoginToRole(String login, Role role) {
+        roleService.setLoginToRole(login, role);
+    }
+
+    public void addUser(User user, String login, Role role) {
         userList.add(user);
         setUserLoginToUserMap(login, user);
-        roleService.setLoginToRole(login);
+        roleService.setLoginToRole(login, role);
     }
 
     public void deleteUser(User userToDelete) {
@@ -82,27 +90,25 @@ public class UserManagement {
         }
     }
 
-    public void writeUserDataIntoFile() {
-        dataPersistenceService.writeUserDataIntoFile(userList);
-    }
-
     public void displayCommandsForUser() {
-        boolean isUserMenuOpen = StudentManagementSystem.getInstance().isUserMenuOpen();
-        //TODO: display different commands for different roles
-        while (isUserMenuOpen) {
-            System.out.println("Enter command: ");
-            String command = sc.nextLine();
-
-            switch (command.toLowerCase()) {
-                case "exit" -> StudentManagementSystem.getInstance().exit();
-                default -> System.out.println("Invalid input");
-            }
-        }
-        exit();
-    }
-
-    public void exit() {
-        dataPersistenceService.writeUserDataIntoFile(userList);
+//        switch (roleService.getCurrentRole()) {
+//            case ADMIN -> displayAdminOptions();
+//            case STUDENT -> displayStudentOptions();
+//            case TEACHER -> displayTeacherOptions();
+//        }
+//
+//        handleUserCommand();
+//
+//        //boolean isUserMenuOpen = StudentManagementSystem.getInstance().isUserMenuOpen();
+//        while (isUserMenuOpen) {
+//            System.out.println("Enter command: ");
+//            String command = sc.nextLine();
+//
+//            switch (command.toLowerCase()) {
+//                case "exit" -> StudentManagementSystem.getInstance().exit();
+//                default -> System.out.println("Invalid input");
+//            }
+//        }
         StudentManagementSystem.getInstance().exit();
     }
 }

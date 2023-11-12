@@ -1,3 +1,1 @@
-Lena, 1000
-Mala, 1001
-Nona, 1002
+LenaName, 1000
