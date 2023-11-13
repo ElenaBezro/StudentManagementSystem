@@ -1,5 +1,6 @@
 package authManagement;
 
+import roleManagement.Role;
 import userManagement.InputService;
 import userManagement.StudentManagementSystem;
 import userManagement.UserManagement;
@@ -17,7 +18,6 @@ public class LoginService {
 
     public LoginService(UserManagement userManagement, List<LoginPasswordPair> userLoginToPassword) {
         this.userManagement = userManagement;
-        this.userLoginToPassword = new ArrayList<>();
         this.sc = InputService.getScanner();
         this.userLoginToPassword = userLoginToPassword;
     }
@@ -42,7 +42,9 @@ public class LoginService {
 
         if (isUserFound) {
             System.out.println("Logged in!");
-            System.out.println("User role: " + userManagement.getRole(login));
+            Role role  = userManagement.getRole(login);
+            System.out.println("User role: " + role);
+            userManagement.setCurrentUserRole(role);
 
             StudentManagementSystem.getInstance().setLoggedIn(true);
             userManagement.displayCommandsForUser();

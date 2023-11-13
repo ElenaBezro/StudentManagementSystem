@@ -40,7 +40,7 @@ public class RegistrationService {
 
         boolean isRoleSetted = false;
         while (!isRoleSetted) {
-            isRoleSetted = userManagement.setCurrentUsersRole();
+            isRoleSetted = userManagement.setCurrentUserRole();
         }
 
         String name = InputService.getUserName();
