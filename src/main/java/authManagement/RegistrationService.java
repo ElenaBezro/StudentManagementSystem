@@ -1,50 +1,31 @@
 package authManagement;
 
+import inputService.InputService;
 import roleManagement.Role;
-import userManagement.InputService;
+import inputService.ScannerInputService;
 import userManagement.User;
 import userManagement.UserManagement;
 import userManagement.Utils;
 
-
 public class RegistrationService {
-    //TODO: move operations with scanner, systemState, validation, isUserLoginAvailable  to a RegistrationController
-
-    UserManagement userManagement;
-    LoginService loginService;
+    private final UserManagement userManagement;
+    private final LoginService loginService;
+    private final InputService inputService;
 
     public RegistrationService(UserManagement userManagement, LoginService loginService) {
         this.userManagement = userManagement;
         this.loginService = loginService;
+        this.inputService = ScannerInputService.getInstance();
     }
 
     public void registerUser() {
-        LoginPasswordPair data = loginService.getUserInputLoginData();
-
-        boolean isValid = validateUserInputLoginData(data);
-        while (!isValid) {
-            data = loginService.getUserInputLoginData();
-            isValid = validateUserInputLoginData(data);
-        }
-
+        LoginPasswordPair data = getAvailableLoginPassword();
         String login = data.getLogin();
-
-        boolean isUserLoginAvailable = loginService.isUserLoginAvailable(login);
-        while (!isUserLoginAvailable) {
-            System.out.println("Login is not available");
-            login = loginService.getUserInputLoginData().getLogin();
-            isUserLoginAvailable = loginService.isUserLoginAvailable(login);
-        }
-
         String password = data.getPassword();
 
-        boolean isRoleSetted = false;
-        while (!isRoleSetted) {
-            isRoleSetted = userManagement.setCurrentUserRole();
-        }
+        setRole();
 
-        String name = InputService.getUserName();
-        User user = Utils.generateUser(name, userManagement.getUsersCount());
+        User user = createUser();
         storeUserInSystem(user, login, password);
 
         loginService.login(login, password);
@@ -56,7 +37,7 @@ public class RegistrationService {
         loginService.storeLoginToPassword(login, password);
     }
 
-    public boolean validateUserInputLoginData(LoginPasswordPair data) {
+    private boolean validateUserInputLoginData(LoginPasswordPair data) {
         boolean isValid = true;
         if (data.getLogin().trim().isEmpty()) {
             isValid = false;
@@ -67,5 +48,53 @@ public class RegistrationService {
             System.out.println("The password must consist of a minimum of four characters or digits.");
         }
         return isValid;
+    }
+
+    private String getInputName() {
+        String name = inputService.getUserInput("Enter User name: ");
+
+        while (name.isBlank() || name.isEmpty()) {
+            System.out.println("Invalid input");
+            name = getInputName();
+        }
+        return name;
+    }
+
+    private LoginPasswordPair getValidData() {
+        LoginPasswordPair data = loginService.getUserInputLoginData();
+        boolean isValid = validateUserInputLoginData(data);
+
+        while (!isValid) {
+            data = loginService.getUserInputLoginData();
+            isValid = validateUserInputLoginData(data);
+        }
+        return data;
+    }
+
+    private LoginPasswordPair getAvailableLoginPassword() {
+        LoginPasswordPair data = getValidData();
+        String loginToCheck = data.getLogin();
+        boolean isUserLoginAvailable = loginService.isUserLoginAvailable(loginToCheck);
+
+        while (!isUserLoginAvailable) {
+            System.out.println("Login is not available");
+            data = getValidData();
+            loginToCheck = data.getLogin();
+            isUserLoginAvailable = loginService.isUserLoginAvailable(loginToCheck);
+        }
+        return data;
+    }
+
+    private void setRole(){
+        boolean isRoleSetted = false;
+
+        while (!isRoleSetted) {
+            isRoleSetted = userManagement.setCurrentUserRole();
+        }
+    }
+
+    private User createUser(){
+        String name = getInputName();
+        return Utils.generateUser(name, userManagement.getUsersCount());
     }
 }

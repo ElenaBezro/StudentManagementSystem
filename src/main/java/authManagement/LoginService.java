@@ -1,24 +1,23 @@
 package authManagement;
 
+import inputService.InputService;
 import roleManagement.Role;
-import userManagement.InputService;
+import inputService.ScannerInputService;
 import userManagement.StudentManagementSystem;
 import userManagement.UserManagement;
 
 import java.util.*;
 
 public class LoginService {
-    //TODO: move operations with scanner, systemState to a LoginController
-
     private final UserManagement userManagement;
     private List<LoginPasswordPair> userLoginToPassword;
-    private final Scanner sc;
+    private final InputService inputService;
     private int countWrongAttempt = 0;
     public static final int ALLOWED_WRONG_LOGIN_INPUT = 3;
 
     public LoginService(UserManagement userManagement, List<LoginPasswordPair> userLoginToPassword) {
         this.userManagement = userManagement;
-        this.sc = InputService.getScanner();
+        this.inputService = ScannerInputService.getInstance();
         this.userLoginToPassword = userLoginToPassword;
     }
 
@@ -43,7 +42,6 @@ public class LoginService {
         if (isUserFound) {
             System.out.println("Logged in!");
             Role role  = userManagement.getRole(login);
-            System.out.println("User role: " + role);
             userManagement.setCurrentUserRole(role);
 
             StudentManagementSystem.getInstance().setLoggedIn(true);
@@ -81,10 +79,8 @@ public class LoginService {
     }
 
     public LoginPasswordPair getUserInputLoginData() {
-        System.out.println("Enter login");
-        String login = sc.nextLine();
-        System.out.println("Enter password");
-        String password = sc.nextLine();
+        String login = inputService.getUserInput("Enter login");
+        String password = inputService.getUserInput("Enter password");
         return (new LoginPasswordPair(login, password));
     }
 }

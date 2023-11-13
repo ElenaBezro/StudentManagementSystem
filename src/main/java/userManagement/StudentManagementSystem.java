@@ -3,6 +3,8 @@ package userManagement;
 import authManagement.LoginService;
 import authManagement.RegistrationService;
 import dataPersistenceManagement.*;
+import inputService.InputService;
+import inputService.ScannerInputService;
 import roleManagement.RoleService;
 
 import java.util.Scanner;
@@ -14,14 +16,14 @@ public class StudentManagementSystem {
     private final LoginService loginService;
     private final RoleService roleService;
     private final ExportData exportData;
-    private final Scanner sc;
+    private final InputService inputService;
     private boolean isRegistration = true;
     private boolean isExit = false;
     private boolean isLoggedIn = false;
     private boolean isUserMenuOpen = true;
 
     private StudentManagementSystem() {
-        this.sc = InputService.getScanner();
+        this.inputService = ScannerInputService.getInstance();
         FetchData fetchData = new FetchDataService();
         this.roleService = new RoleService(fetchData.getLoginToRole());
         this.userManagement = new UserManagement(roleService, fetchData.getUserList(), fetchData.getLoginToUser());
@@ -71,7 +73,7 @@ public class StudentManagementSystem {
         while (isRegistration && !isLoggedIn) {
             System.out.println("Enter 'login' or 'register' to enter system");
             System.out.println("Enter 'exit' to exit system");
-            String command = sc.nextLine();
+            String command = inputService.getUserInput("Cammand: ");
             switch (command.toLowerCase()) {
                 case "login" -> loginService.login();
                 case "register" -> registrationService.registerUser();
@@ -94,7 +96,7 @@ public class StudentManagementSystem {
         instance.setUserMenuOpen(false);
         writeAllDataIntoFiles();
         System.out.println("Goodbye!");
-        sc.close();
+        inputService.close();
     }
 
     public <T> void printObject(T object) {
