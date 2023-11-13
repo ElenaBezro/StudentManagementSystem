@@ -1,23 +1,24 @@
 package userManagement;
 
+import inputService.InputService;
+import inputService.ScannerInputService;
 import roleManagement.Role;
 import roleManagement.RoleService;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Scanner;
 
 public class UserManagement {
     private final RoleService roleService;
     private final List<User> userList;
     private final Map<String, User> userLoginToUserMap;
-    private final Scanner sc;
+    private final InputService inputService;
 
     public UserManagement(RoleService roleService, List<User> userList, Map<String, User> userLoginToUserMap) {
         this.roleService = roleService;
         this.userLoginToUserMap = userLoginToUserMap;
         this.userList = userList;
-        this.sc = InputService.getScanner();
+        this.inputService = ScannerInputService.getInstance();
     }
 
     public List<User> getUserList() {
@@ -91,13 +92,11 @@ public class UserManagement {
     }
 
     public void updateUser() {
-        System.out.println("Enter user id: ");
-        int id = Integer.parseInt(sc.nextLine());
+        int id = Integer.parseInt(inputService.getUserInput("Enter user id: "));
         User userToUpdate;
         for (User user : userList) {
             if (user.getId() == id) {
-                System.out.println("Enter new user name: ");
-                String name = sc.nextLine();
+                String name = inputService.getUserInput("Enter new user name: ");
                 userToUpdate = new User(name, id);
                 updateUser(userToUpdate);
                 return;
@@ -127,7 +126,7 @@ public class UserManagement {
             System.out.println("Enter 'update' to update user");
             System.out.println("Enter 'delete' to delete user");
             System.out.println("Enter 'exit' to exit system");
-            String command = sc.nextLine();
+            String command = inputService.getUserInput("Command: ");
             handleUserCommand(command);
         }
     }
